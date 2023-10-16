@@ -1598,17 +1598,7 @@ class WP_Rewrite {
 		 *
 		 * @param string $rules mod_rewrite Rewrite rules formatted for .htaccess.
 		 */
-		$rules = apply_filters( 'mod_rewrite_rules', $rules );
-
-		/**
-		 * Filters the list of rewrite rules formatted for output to an .htaccess file.
-		 *
-		 * @since 1.5.0
-		 * @deprecated 1.5.0 Use the {@see 'mod_rewrite_rules'} filter instead.
-		 *
-		 * @param string $rules mod_rewrite Rewrite rules formatted for .htaccess.
-		 */
-		return apply_filters_deprecated( 'rewrite_rules', array( $rules ), '1.5.0', 'mod_rewrite_rules' );
+		return apply_filters( 'mod_rewrite_rules', $rules );
 	}
 
 	/**

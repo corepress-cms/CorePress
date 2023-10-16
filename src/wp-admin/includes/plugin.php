@@ -490,6 +490,7 @@ function get_dropins() {
 function _get_dropins() {
 	$dropins = array(
 		'advanced-cache.php'      => array( __( 'Advanced caching plugin.' ), 'WP_CACHE' ),  // WP_CACHE
+		'backwards-compat.php'    => array( __( 'Backwards-compatibility' ), true ),         // Auto on load.
 		'db.php'                  => array( __( 'Custom database class.' ), true ),          // Auto on load.
 		'db-error.php'            => array( __( 'Custom database error message.' ), true ),  // Auto on error.
 		'install.php'             => array( __( 'Custom installation script.' ), true ),     // Auto on installation.

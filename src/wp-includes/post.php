@@ -7477,16 +7477,6 @@ function _transition_post_status( $new_status, $old_status, $post ) {
 		if ( '' === get_the_guid( $post->ID ) ) {
 			$wpdb->update( $wpdb->posts, array( 'guid' => get_permalink( $post->ID ) ), array( 'ID' => $post->ID ) );
 		}
-
-		/**
-		 * Fires when a post's status is transitioned from private to published.
-		 *
-		 * @since 1.5.0
-		 * @deprecated 2.3.0 Use {@see 'private_to_publish'} instead.
-		 *
-		 * @param int $post_id Post ID.
-		 */
-		do_action_deprecated( 'private_to_published', array( $post->ID ), '2.3.0', 'private_to_publish' );
 	}
 
 	// If published posts changed clear the lastpostmodified cache.

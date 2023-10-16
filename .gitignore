@@ -64,6 +64,7 @@ wp-tests-config.php
 /src/wp-content/upgrade
 /src/wp-content/uploads
 /src/wp-content/advanced-cache.php
+/src/wp-content/backwards-compat.php
 /src/wp-content/blog-deleted.php
 /src/wp-content/blog-inactive.php
 /src/wp-content/blog-suspended.php

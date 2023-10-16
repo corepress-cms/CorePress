@@ -101,6 +101,10 @@ if ( WP_CACHE && apply_filters( 'enable_loading_advanced_cache_dropin', true ) &
 	}
 }
 
+if ( file_exists( WP_CONTENT_DIR . '/backwards-compat.php' ) ) {
+	include WP_CONTENT_DIR . '/backwards-compat.php';
+}
+
 // Define WP_LANG_DIR if not set.
 wp_set_lang_dir();
 
@@ -486,7 +490,9 @@ unset( $plugin, $_wp_plugin_file );
 
 // Load pluggable functions.
 require ABSPATH . WPINC . '/pluggable.php';
-require ABSPATH . WPINC . '/pluggable-deprecated.php';
+if ( file_exists( WP_CONTENT_DIR . '/backwards-compat.php' ) && function_exists( 'backwards_compat_pluggable' ) ) {
+	backwards_compat_pluggable();
+}
 
 // Set internal encoding.
 wp_set_internal_encoding();
