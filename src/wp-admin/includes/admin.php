@@ -90,6 +90,10 @@ require_once ABSPATH . 'wp-admin/includes/class-wp-site-icon.php';
 /** WordPress Update Administration API */
 require_once ABSPATH . 'wp-admin/includes/update.php';
 
+if ( file_exists( WP_CONTENT_DIR . '/backwards-compat.php' ) && function_exists( 'backwards_compat_admin' ) ) {
+	backwards_compat_admin();
+}
+
 /** WordPress Deprecated Administration API */
 require_once ABSPATH . 'wp-admin/includes/deprecated.php';
 
