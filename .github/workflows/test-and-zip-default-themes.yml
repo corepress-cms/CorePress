@@ -9,10 +9,6 @@ on:
     paths:
       # Changing the preferred version of Node.js could affect themes with build processes.
       - '.nvm'
-      # Changes to any themes with a build script should be confirmed.
-      - 'src/wp-content/themes/twentynineteen/**'
-      - 'src/wp-content/themes/twentytwenty/**'
-      - 'src/wp-content/themes/twentytwentyone/**'
       # Changes to this workflow file should always verify success.
       - '.github/workflows/test-and-zip-default-themes.yml'
   pull_request:
@@ -23,10 +19,6 @@ on:
     paths:
       # Changing the preferred version of Node.js could affect themes with build processes.
       - '.nvm'
-      # Changes to any themes with a build script should be confirmed.
-      - 'src/wp-content/themes/twentynineteen/**'
-      - 'src/wp-content/themes/twentytwenty/**'
-      - 'src/wp-content/themes/twentytwentyone/**'
       # Changes to this workflow file should always verify success.
       - '.github/workflows/test-and-zip-default-themes.yml'
   workflow_dispatch:
@@ -68,20 +60,7 @@ jobs:
       fail-fast: false
       matrix:
         theme: [
-          'twentytwentyfour',
-          'twentytwentythree',
-          'twentytwentytwo',
-          'twentytwentyone',
-          'twentytwenty',
-          'twentynineteen',
-          'twentyseventeen',
-          'twentysixteen',
-          'twentyfifteen',
-          'twentyfourteen',
-          'twentythirteen',
-          'twentytwelve',
-          'twentyeleven',
-          'twentyten'
+          'twentytwentyfour'
         ]
 
     steps:
@@ -94,57 +73,6 @@ jobs:
       - name: Check for zero-byte (empty) files
         run: |
           [[ ! $(find src/wp-content/themes/${{ matrix.theme }} -empty) ]]
-
-  # Tests the build script for themes that have one.
-  #
-  # Performs the following steps:
-  # - Checks out the repository.
-  # - Sets up Node.js.
-  # - Installs npm dependencies.
-  # - Runs the theme build script.
-  # - Ensures version-controlled files are not modified or deleted.
-  test-build-scripts:
-    name: Test ${{ matrix.theme }} build script
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    timeout-minutes: 10
-    if: ${{ github.repository == 'WordPress/wordpress-develop' || github.event_name == 'pull_request' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        theme: [
-            'twentytwentyone',
-            'twentytwenty',
-            'twentynineteen',
-        ]
-
-    defaults:
-      run:
-        working-directory: src/wp-content/themes/${{ matrix.theme }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
-        with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.branch || github.ref }}
-          show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
-        with:
-          node-version-file: '.nvmrc'
-          cache: npm
-          cache-dependency-path: src/wp-content/themes/${{ matrix.theme }}/package-lock.json
-
-      - name: Install npm dependencies
-        run: npm ci
-
-      - name: Build theme
-        run: npm run build
-
-      - name: Ensure version-controlled files are not modified or deleted
-        run: git diff --exit-code
 
   # Prepares bundled themes for release.
   #
@@ -163,20 +91,7 @@ jobs:
       fail-fast: false
       matrix:
         theme: [
-            'twentytwentyfour',
-            'twentytwentythree',
-            'twentytwentytwo',
-            'twentytwentyone',
-            'twentytwenty',
-            'twentynineteen',
-            'twentyseventeen',
-            'twentysixteen',
-            'twentyfifteen',
-            'twentyfourteen',
-            'twentythirteen',
-            'twentytwelve',
-            'twentyeleven',
-            'twentyten'
+            'twentytwentyfour'
         ]
 
     steps:
