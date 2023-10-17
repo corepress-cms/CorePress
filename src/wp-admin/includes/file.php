@@ -560,14 +560,22 @@ function wp_edit_theme_plugin_file( $args ) {
 
 		// Attempt loopback request to editor to see if user just whitescreened themselves.
 		if ( $plugin ) {
-			$url = add_query_arg( compact( 'plugin', 'file' ), admin_url( 'plugin-editor.php' ) );
+			$url = add_query_arg( 
+				array(
+					'file'   => rawurlencode( $file ),
+					'plugin' => rawurlencode( $plugin ),
+					'page'  => 'corepress_file_editor_plugin',
+				),
+				self_admin_url( 'tools.php' )
+			);
 		} elseif ( isset( $stylesheet ) ) {
 			$url = add_query_arg(
 				array(
 					'theme' => $stylesheet,
 					'file'  => $file,
+					'page'  => 'corepress_file_editor_theme',
 				),
-				admin_url( 'theme-editor.php' )
+				admin_url( wp_is_block_theme() ? 'tools.php' : 'themes.php' )
 			);
 		} else {
 			$url = admin_url();
