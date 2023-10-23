@@ -5123,16 +5123,6 @@ function wp_readonly( $readonly_value, $current = true, $display = true ) {
 	return __checked_selected_helper( $readonly_value, $current, $display, 'readonly' );
 }
 
-/*
- * Include a compat `readonly()` function on PHP < 8.1. Since PHP 8.1,
- * `readonly` is a reserved keyword and cannot be used as a function name.
- * In order to avoid PHP parser errors, this function was extracted
- * to a separate file and is only included conditionally on PHP < 8.1.
- */
-if ( PHP_VERSION_ID < 80100 ) {
-	require_once __DIR__ . '/php-compat/readonly.php';
-}
-
 /**
  * Private helper function for checked, selected, disabled and readonly.
  *
