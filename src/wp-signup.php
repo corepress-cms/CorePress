@@ -471,18 +471,6 @@ function validate_another_blog_signup() {
 	}
 
 	/**
-	 * Filters the new site meta variables.
-	 *
-	 * Use the {@see 'add_signup_meta'} filter instead.
-	 *
-	 * @since MU (3.0.0)
-	 * @deprecated 3.0.0 Use the {@see 'add_signup_meta'} filter instead.
-	 *
-	 * @param array $blog_meta_defaults An array of default blog meta variables.
-	 */
-	$meta_defaults = apply_filters_deprecated( 'signup_create_blog_meta', array( $blog_meta_defaults ), '3.0.0', 'add_signup_meta' );
-
-	/**
 	 * Filters the new default site meta variables.
 	 *
 	 * @since 3.0.0
@@ -494,7 +482,7 @@ function validate_another_blog_signup() {
 	 *     @type int $blog_public Whether search engines should be discouraged from indexing the site. 1 for true, 0 for false.
 	 * }
 	 */
-	$meta = apply_filters( 'add_signup_meta', $meta_defaults );
+	$meta = apply_filters( 'add_signup_meta', $blog_meta_defaults );
 
 	$blog_id = wpmu_create_blog( $domain, $path, $blog_title, $current_user->ID, $meta, get_current_network_id() );
 
