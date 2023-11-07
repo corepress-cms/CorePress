@@ -236,7 +236,7 @@ class wpdb {
 	/**
 	 * WordPress table prefix.
 	 *
-	 * You can set this to have multiple WordPress installations in a single database.
+	 * You can set this to have multiple CorePress installations in a single database.
 	 * The second reason is for possible security precautions.
 	 *
 	 * @since 2.5.0

@@ -3021,15 +3021,15 @@ function wp_maybe_inline_styles() {
 }
 
 /**
- * Makes URLs relative to the WordPress installation.
+ * Makes URLs relative to the CorePress installation.
  *
  * @since 5.9.0
  * @access private
  *
- * @param string $css            The CSS to make URLs relative to the WordPress installation.
+ * @param string $css            The CSS to make URLs relative to the CorePress installation.
  * @param string $stylesheet_url The URL to the stylesheet.
  *
- * @return string The CSS with URLs made relative to the WordPress installation.
+ * @return string The CSS with URLs made relative to the CorePress installation.
  */
 function _wp_normalize_relative_css_links( $css, $stylesheet_url ) {
 	return preg_replace_callback(

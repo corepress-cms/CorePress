@@ -11,7 +11,7 @@ class Tests_Formatting_wpAutop extends WP_UnitTestCase {
 	 * @ticket 11008
 	 */
 	public function test_first_post() {
-		$expected  = '<p>Welcome to WordPress!  This post contains important information.  After you read it, you can make it private to hide it from visitors but still have the information handy for future reference.</p>
+		$expected  = '<p>Welcome to CorePress!  This post contains important information.  After you read it, you can make it private to hide it from visitors but still have the information handy for future reference.</p>
 <p>First things first:</p>
 <ul>
 <li><a href="%1$s" title="Subscribe to the WordPress mailing list for Release Notifications">Subscribe to the WordPress mailing list for release notifications</a></li>
@@ -34,7 +34,7 @@ Upgrading is a couple of clicks!</p>
 <p>PS.  Not yet subscribed for update notifications?  <a href="%1$s" title="Subscribe to the WordPress mailing list for Release Notifications">Do it now!</a></p>
 ';
 		$test_data = '
-Welcome to WordPress!  This post contains important information.  After you read it, you can make it private to hide it from visitors but still have the information handy for future reference.
+Welcome to CorePress!  This post contains important information.  After you read it, you can make it private to hide it from visitors but still have the information handy for future reference.
 
 First things first:
 <ul>

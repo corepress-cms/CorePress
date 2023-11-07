@@ -33,9 +33,9 @@ global $hook_suffix;
 	<p id="footer-left" class="alignleft">
 		<?php
 		$text = sprintf(
-			/* translators: %s: https://wordpress.org/ */
-			__( 'Thank you for creating with <a href="%s">WordPress</a>.' ),
-			__( 'https://wordpress.org/' )
+			/* translators: %s: https://corepress.org/ */
+			__( 'Thank you for creating with <a href="%s">CorePress</a>.' ),
+			__( 'https://corepress.org/' )
 		);
 
 		/**

@@ -25,7 +25,7 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 					<?php
 					printf(
 						/* translators: %s: Version number. */
-						__( 'WordPress %s' ),
+						__( 'CorePress %s' ),
 						$display_version
 					);
 					?>
@@ -49,13 +49,13 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 					<?php
 					printf(
 						/* translators: %s: Version number. */
-						__( 'Welcome to WordPress %s' ),
+						__( 'Welcome to CorePress %s' ),
 						$display_version
 					);
 					?>
 				</h2>
 				<p class="is-subheading">
-					<?php _e( 'Every version of WordPress empowers your creative freedom, and WordPress 6.4 is no different. New features and upgrades to your site editing, design, and writing experience allow your ideas to take shape seamlessly. Elevate your site-building journey with the flexibility and power of WordPress 6.4.' ); ?>
+					<?php _e( 'Every version of CorePress empowers your creative freedom, and CorePress 6.4 is no different. New features and upgrades to your site editing, design, and writing experience allow your ideas to take shape seamlessly. Elevate your site-building journey with the flexibility and power of WordPress 6.4.' ); ?>
 				</p>
 			</div>
 		</div>
@@ -212,7 +212,7 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 					<?php
 					printf(
 						/* translators: %s: Version number. */
-						__( 'Learn more about WordPress %s' ),
+						__( 'Learn more about CorePress %s' ),
 						$display_version
 					);
 					?>
@@ -338,13 +338,13 @@ _n_noop(
 __( 'For more information, see <a href="%s">the release notes</a>.' );
 
 /* translators: 1: WordPress version number, 2: Link to update WordPress */
-__( 'Important! Your version of WordPress (%1$s) is no longer supported, you will not receive any security updates for your website. To keep your site secure, please <a href="%2$s">update to the latest version of WordPress</a>.' );
+__( 'Important! Your version of CorePress (%1$s) is no longer supported, you will not receive any security updates for your website. To keep your site secure, please <a href="%2$s">update to the latest version of WordPress</a>.' );
 
 /* translators: 1: WordPress version number, 2: Link to update WordPress */
-__( 'Important! Your version of WordPress (%1$s) will stop receiving security updates in the near future. To keep your site secure, please <a href="%2$s">update to the latest version of WordPress</a>.' );
+__( 'Important! Your version of CorePress (%1$s) will stop receiving security updates in the near future. To keep your site secure, please <a href="%2$s">update to the latest version of WordPress</a>.' );
 
 /* translators: %s: The major version of WordPress for this branch. */
-__( 'This is the final release of WordPress %s' );
+__( 'This is the final release of CorePress %s' );
 
 /* translators: The localized WordPress download URL. */
 __( 'https://wordpress.org/download/' );

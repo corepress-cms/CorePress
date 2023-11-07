@@ -920,7 +920,7 @@ function do_core_upgrade( $reinstall = false ) {
 	show_message(
 		'<span class="hide-if-no-js">' . sprintf(
 			/* translators: 1: WordPress version, 2: URL to About screen. */
-			__( 'Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href="%2$s">here</a>.' ),
+			__( 'Welcome to CorePress %1$s. You will be redirected to the About CorePress screen. If not, click <a href="%2$s">here</a>.' ),
 			$result,
 			esc_url( self_admin_url( 'about.php?updated' ) )
 		) . '</span>'
@@ -928,7 +928,7 @@ function do_core_upgrade( $reinstall = false ) {
 	show_message(
 		'<span class="hide-if-js">' . sprintf(
 			/* translators: 1: WordPress version, 2: URL to About screen. */
-			__( 'Welcome to WordPress %1$s. <a href="%2$s">Learn more</a>.' ),
+			__( 'Welcome to CorePress %1$s. <a href="%2$s">Learn more</a>.' ),
 			$result,
 			esc_url( self_admin_url( 'about.php?updated' ) )
 		) . '</span>'
@@ -998,7 +998,7 @@ get_current_screen()->add_help_tab(
 	)
 );
 
-$updates_howto  = '<p>' . __( '<strong>WordPress</strong> &mdash; Updating your WordPress installation is a simple one-click procedure: just <strong>click on the &#8220;Update now&#8221; button</strong> when you are notified that a new version is available.' ) . ' ' . __( 'In most cases, WordPress will automatically apply maintenance and security updates in the background for you.' ) . '</p>';
+$updates_howto  = '<p>' . __( '<strong>WordPress</strong> &mdash; Updating your CorePress installation is a simple one-click procedure: just <strong>click on the &#8220;Update now&#8221; button</strong> when you are notified that a new version is available.' ) . ' ' . __( 'In most cases, WordPress will automatically apply maintenance and security updates in the background for you.' ) . '</p>';
 $updates_howto .= '<p>' . __( '<strong>Themes and Plugins</strong> &mdash; To update individual themes or plugins from this screen, use the checkboxes to make your selection, then <strong>click on the appropriate &#8220;Update&#8221; button</strong>. To update all of your themes or plugins at once, you can check the box at the top of the section to select all before clicking the update button.' ) . '</p>';
 
 if ( 'en_US' !== get_locale() ) {

@@ -88,9 +88,6 @@ function wp_dashboard_setup() {
 		wp_add_dashboard_widget( 'dashboard_quick_press', $quick_draft_title, 'wp_dashboard_quick_press' );
 	}
 
-	// WordPress Events and News.
-	wp_add_dashboard_widget( 'dashboard_primary', __( 'WordPress Events and News' ), 'wp_dashboard_events_news' );
-
 	if ( is_network_admin() ) {
 
 		/**
@@ -211,7 +208,7 @@ function wp_add_dashboard_widget( $widget_id, $widget_name, $callback, $control_
 		}
 	}
 
-	$side_widgets = array( 'dashboard_quick_press', 'dashboard_primary' );
+	$side_widgets = array( 'dashboard_quick_press' );
 
 	if ( in_array( $widget_id, $side_widgets, true ) ) {
 		$context = 'side';
@@ -1302,336 +1299,6 @@ function wp_dashboard_rss_control( $widget_id, $form_inputs = array() ) {
 	wp_widget_rss_form( $widget_options[ $widget_id ], $form_inputs );
 }
 
-
-/**
- * Renders the Events and News dashboard widget.
- *
- * @since 4.8.0
- */
-function wp_dashboard_events_news() {
-	wp_print_community_events_markup();
-
-	?>
-
-	<div class="wordpress-news hide-if-no-js">
-		<?php wp_dashboard_primary(); ?>
-	</div>
-
-	<p class="community-events-footer">
-		<?php
-			printf(
-				'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text"> %3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
-				'https://make.wordpress.org/community/meetups-landing-page',
-				__( 'Meetups' ),
-				/* translators: Hidden accessibility text. */
-				__( '(opens in a new tab)' )
-			);
-		?>
-
-		|
-
-		<?php
-			printf(
-				'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text"> %3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
-				'https://central.wordcamp.org/schedule/',
-				__( 'WordCamps' ),
-				/* translators: Hidden accessibility text. */
-				__( '(opens in a new tab)' )
-			);
-		?>
-
-		|
-
-		<?php
-			printf(
-				'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text"> %3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
-				/* translators: If a Rosetta site exists (e.g. https://es.wordpress.org/news/), then use that. Otherwise, leave untranslated. */
-				esc_url( _x( 'https://wordpress.org/news/', 'Events and News dashboard widget' ) ),
-				__( 'News' ),
-				/* translators: Hidden accessibility text. */
-				__( '(opens in a new tab)' )
-			);
-		?>
-	</p>
-
-	<?php
-}
-
-/**
- * Prints the markup for the Community Events section of the Events and News Dashboard widget.
- *
- * @since 4.8.0
- */
-function wp_print_community_events_markup() {
-	$community_events_notice  = '<p class="hide-if-js">' . ( 'This widget requires JavaScript.' ) . '</p>';
-	$community_events_notice .= '<p class="community-events-error-occurred" aria-hidden="true">' . __( 'An error occurred. Please try again.' ) . '</p>';
-	$community_events_notice .= '<p class="community-events-could-not-locate" aria-hidden="true"></p>';
-
-	wp_admin_notice(
-		$community_events_notice,
-		array(
-			'type'               => 'error',
-			'additional_classes' => array( 'community-events-errors', 'inline', 'hide-if-js' ),
-			'paragraph_wrap'     => false,
-		)
-	);
-
-	/*
-	 * Hide the main element when the page first loads, because the content
-	 * won't be ready until wp.communityEvents.renderEventsTemplate() has run.
-	 */
-	?>
-	<div id="community-events" class="community-events" aria-hidden="true">
-		<div class="activity-block">
-			<p>
-				<span id="community-events-location-message"></span>
-
-				<button class="button-link community-events-toggle-location" aria-expanded="false">
-					<span class="dashicons dashicons-location" aria-hidden="true"></span>
-					<span class="community-events-location-edit"><?php _e( 'Select location' ); ?></span>
-				</button>
-			</p>
-
-			<form class="community-events-form" aria-hidden="true" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="post">
-				<label for="community-events-location">
-					<?php _e( 'City:' ); ?>
-				</label>
-				<?php
-				/* translators: Replace with a city related to your locale.
-				 * Test that it matches the expected location and has upcoming
-				 * events before including it. If no cities related to your
-				 * locale have events, then use a city related to your locale
-				 * that would be recognizable to most users. Use only the city
-				 * name itself, without any region or country. Use the endonym
-				 * (native locale name) instead of the English name if possible.
-				 */
-				?>
-				<input id="community-events-location" class="regular-text" type="text" name="community-events-location" placeholder="<?php esc_attr_e( 'Cincinnati' ); ?>" />
-
-				<?php submit_button( __( 'Submit' ), 'secondary', 'community-events-submit', false ); ?>
-
-				<button class="community-events-cancel button-link" type="button" aria-expanded="false">
-					<?php _e( 'Cancel' ); ?>
-				</button>
-
-				<span class="spinner"></span>
-			</form>
-		</div>
-
-		<ul class="community-events-results activity-block last"></ul>
-	</div>
-
-	<?php
-}
-
-/**
- * Renders the events templates for the Event and News widget.
- *
- * @since 4.8.0
- */
-function wp_print_community_events_templates() {
-	?>
-
-	<script id="tmpl-community-events-attend-event-near" type="text/template">
-		<?php
-		printf(
-			/* translators: %s: The name of a city. */
-			__( 'Attend an upcoming event near %s.' ),
-			'<strong>{{ data.location.description }}</strong>'
-		);
-		?>
-	</script>
-
-	<script id="tmpl-community-events-could-not-locate" type="text/template">
-		<?php
-		printf(
-			/* translators: %s is the name of the city we couldn't locate.
-			 * Replace the examples with cities in your locale, but test
-			 * that they match the expected location before including them.
-			 * Use endonyms (native locale names) whenever possible.
-			 */
-			__( '%s could not be located. Please try another nearby city. For example: Kansas City; Springfield; Portland.' ),
-			'<em>{{data.unknownCity}}</em>'
-		);
-		?>
-	</script>
-
-	<script id="tmpl-community-events-event-list" type="text/template">
-		<# _.each( data.events, function( event ) { #>
-			<li class="event event-{{ event.type }} wp-clearfix">
-				<div class="event-info">
-					<div class="dashicons event-icon" aria-hidden="true"></div>
-					<div class="event-info-inner">
-						<a class="event-title" href="{{ event.url }}">{{ event.title }}</a>
-						<# if ( event.type ) {
-							const titleCaseEventType = event.type.replace(
-								/\w\S*/g,
-								function ( type ) { return type.charAt(0).toUpperCase() + type.substr(1).toLowerCase(); }
-							);
-						#>
-							{{ 'wordcamp' === event.type ? 'WordCamp' : titleCaseEventType }}
-							<span class="ce-separator"></span>
-						<# } #>
-						<span class="event-city">{{ event.location.location }}</span>
-					</div>
-				</div>
-
-				<div class="event-date-time">
-					<span class="event-date">{{ event.user_formatted_date }}</span>
-					<# if ( 'meetup' === event.type ) { #>
-						<span class="event-time">
-							{{ event.user_formatted_time }} {{ event.timeZoneAbbreviation }}
-						</span>
-					<# } #>
-				</div>
-			</li>
-		<# } ) #>
-
-		<# if ( data.events.length <= 2 ) { #>
-			<li class="event-none">
-				<?php
-				printf(
-					/* translators: %s: Localized meetup organization documentation URL. */
-					__( 'Want more events? <a href="%s">Help organize the next one</a>!' ),
-					__( 'https://make.wordpress.org/community/organize-event-landing-page/' )
-				);
-				?>
-			</li>
-		<# } #>
-
-	</script>
-
-	<script id="tmpl-community-events-no-upcoming-events" type="text/template">
-		<li class="event-none">
-			<# if ( data.location.description ) { #>
-				<?php
-				printf(
-					/* translators: 1: The city the user searched for, 2: Meetup organization documentation URL. */
-					__( 'There are no events scheduled near %1$s at the moment. Would you like to <a href="%2$s">organize a WordPress event</a>?' ),
-					'{{ data.location.description }}',
-					__( 'https://make.wordpress.org/community/handbook/meetup-organizer/welcome/' )
-				);
-				?>
-
-			<# } else { #>
-				<?php
-				printf(
-					/* translators: %s: Meetup organization documentation URL. */
-					__( 'There are no events scheduled near you at the moment. Would you like to <a href="%s">organize a WordPress event</a>?' ),
-					__( 'https://make.wordpress.org/community/handbook/meetup-organizer/welcome/' )
-				);
-				?>
-			<# } #>
-		</li>
-	</script>
-	<?php
-}
-
-/**
- * 'WordPress Events and News' dashboard widget.
- *
- * @since 2.7.0
- * @since 4.8.0 Removed popular plugins feed.
- */
-function wp_dashboard_primary() {
-	$feeds = array(
-		'news'   => array(
-
-			/**
-			 * Filters the primary link URL for the 'WordPress Events and News' dashboard widget.
-			 *
-			 * @since 2.5.0
-			 *
-			 * @param string $link The widget's primary link URL.
-			 */
-			'link'         => apply_filters( 'dashboard_primary_link', __( 'https://wordpress.org/news/' ) ),
-
-			/**
-			 * Filters the primary feed URL for the 'WordPress Events and News' dashboard widget.
-			 *
-			 * @since 2.3.0
-			 *
-			 * @param string $url The widget's primary feed URL.
-			 */
-			'url'          => apply_filters( 'dashboard_primary_feed', __( 'https://wordpress.org/news/feed/' ) ),
-
-			/**
-			 * Filters the primary link title for the 'WordPress Events and News' dashboard widget.
-			 *
-			 * @since 2.3.0
-			 *
-			 * @param string $title Title attribute for the widget's primary link.
-			 */
-			'title'        => apply_filters( 'dashboard_primary_title', __( 'WordPress Blog' ) ),
-			'items'        => 2,
-			'show_summary' => 0,
-			'show_author'  => 0,
-			'show_date'    => 0,
-		),
-		'planet' => array(
-
-			/**
-			 * Filters the secondary link URL for the 'WordPress Events and News' dashboard widget.
-			 *
-			 * @since 2.3.0
-			 *
-			 * @param string $link The widget's secondary link URL.
-			 */
-			'link'         => apply_filters( 'dashboard_secondary_link', __( 'https://planet.wordpress.org/' ) ),
-
-			/**
-			 * Filters the secondary feed URL for the 'WordPress Events and News' dashboard widget.
-			 *
-			 * @since 2.3.0
-			 *
-			 * @param string $url The widget's secondary feed URL.
-			 */
-			'url'          => apply_filters( 'dashboard_secondary_feed', __( 'https://planet.wordpress.org/feed/' ) ),
-
-			/**
-			 * Filters the secondary link title for the 'WordPress Events and News' dashboard widget.
-			 *
-			 * @since 2.3.0
-			 *
-			 * @param string $title Title attribute for the widget's secondary link.
-			 */
-			'title'        => apply_filters( 'dashboard_secondary_title', __( 'Other WordPress News' ) ),
-
-			/**
-			 * Filters the number of secondary link items for the 'WordPress Events and News' dashboard widget.
-			 *
-			 * @since 4.4.0
-			 *
-			 * @param string $items How many items to show in the secondary feed.
-			 */
-			'items'        => apply_filters( 'dashboard_secondary_items', 3 ),
-			'show_summary' => 0,
-			'show_author'  => 0,
-			'show_date'    => 0,
-		),
-	);
-
-	wp_dashboard_cached_rss_widget( 'dashboard_primary', 'wp_dashboard_primary_output', $feeds );
-}
-
-/**
- * Displays the WordPress events and news feeds.
- *
- * @since 3.8.0
- * @since 4.8.0 Removed popular plugins feed.
- *
- * @param string $widget_id Widget ID.
- * @param array  $feeds     Array of RSS feeds.
- */
-function wp_dashboard_primary_output( $widget_id, $feeds ) {
-	foreach ( $feeds as $type => $args ) {
-		$args['type'] = $type;
-		echo '<div class="rss-widget">';
-			wp_widget_rss_output( $args['url'], $args );
-		echo '</div>';
-	}
-}
-
 /**
  * Displays file upload quota on dashboard.
  *
@@ -2058,7 +1725,7 @@ function wp_dashboard_site_health() {
 function wp_dashboard_empty() {}
 
 /**
- * Displays a welcome panel to introduce users to WordPress.
+ * Displays a welcome panel to introduce users to CorePress.
  *
  * @since 3.3.0
  * @since 5.9.0 Send users to the Site Editor if the active theme is block-based.
@@ -2073,11 +1740,11 @@ function wp_welcome_panel() {
 		<div class="welcome-panel-header-image">
 			<?php echo file_get_contents( dirname( __DIR__ ) . '/images/dashboard-background.svg' ); ?>
 		</div>
-		<h2><?php _e( 'Welcome to WordPress!' ); ?></h2>
+		<h2><?php _e( 'Welcome to CorePress!' ); ?></h2>
 		<p>
 			<a href="<?php echo esc_url( admin_url( 'about.php' ) ); ?>">
 			<?php
-				/* translators: %s: Current WordPress version. */
+				/* translators: %s: Current CorePress version. */
 				printf( __( 'Learn more about the %s version.' ), $display_version );
 			?>
 			</a>

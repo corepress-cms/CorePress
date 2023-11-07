@@ -50,7 +50,7 @@ class WP_Filesystem_Find_Folder_Test extends WP_Filesystem_UnitTestCase {
 	}
 
 	/**
-	 * Two WordPress installations, with one contained within the other
+	 * Two CorePress installations, with one contained within the other
 	 * FTP / = /var/www/example.com/ on Disk
 	 * example.com at /
 	 * wp.example.com at /wp.example.com/wordpress/

@@ -1042,7 +1042,7 @@ $_new_bundled_files = array(
  * @global string             $required_mysql_version
  *
  * @param string $from New release unzipped path.
- * @param string $to   Path to old WordPress installation.
+ * @param string $to   Path to old CorePress installation.
  * @return string|WP_Error New WordPress version on success, WP_Error on failure.
  */
 function update_core( $from, $to ) {
@@ -1622,7 +1622,7 @@ function update_core( $from, $to ) {
  * @global WP_Filesystem_Base $wp_filesystem       WordPress filesystem subclass.
  * @global string             $wp_version          The WordPress version string.
  *
- * @param string $to Path to old WordPress installation.
+ * @param string $to Path to old CorePress installation.
  */
 function _preload_old_requests_classes_and_interfaces( $to ) {
 	global $_old_requests_files, $wp_filesystem, $wp_version;

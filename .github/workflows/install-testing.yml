@@ -30,7 +30,7 @@ concurrency:
 permissions: {}
 
 jobs:
-  # Test the WordPress installation process through WP-CLI.
+  # Test the CorePress installation process through WP-CLI.
   #
   # Performs the following steps:
   # - Sets up PHP.

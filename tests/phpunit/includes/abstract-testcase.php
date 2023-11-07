@@ -6,7 +6,7 @@ require_once __DIR__ . '/trac.php';
 /**
  * Defines a basic fixture to run multiple tests.
  *
- * Resets the state of the WordPress installation before and after every test.
+ * Resets the state of the CorePress installation before and after every test.
  *
  * Includes utility functions and assertions useful for testing WordPress.
  *

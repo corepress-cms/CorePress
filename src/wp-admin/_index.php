@@ -92,12 +92,6 @@ if ( is_blog_admin() && current_user_can( 'edit_posts' ) ) {
 	$help .= '<p>' . __( "<strong>Quick Draft</strong> &mdash; Allows you to create a new post and save it as a draft. Also displays links to the 3 most recent draft posts you've started." ) . '</p>';
 }
 
-$help .= '<p>' . sprintf(
-	/* translators: %s: WordPress Planet URL. */
-	__( '<strong>WordPress Events and News</strong> &mdash; Upcoming events near you as well as the latest news from the official WordPress project and the <a href="%s">WordPress Planet</a>.' ),
-	__( 'https://planet.wordpress.org/' )
-) . '</p>';
-
 $screen->add_help_tab(
 	array(
 		'id'      => 'help-content',
@@ -207,6 +201,5 @@ if ( has_action( 'welcome_panel' ) && current_user_can( 'edit_theme_options' ) )
 </div><!-- wrap -->
 
 <?php
-wp_print_community_events_templates();
 
 require_once ABSPATH . 'wp-admin/admin-footer.php';

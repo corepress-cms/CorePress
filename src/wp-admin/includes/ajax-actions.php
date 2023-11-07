@@ -413,27 +413,6 @@ function wp_ajax_get_community_events() {
 }
 
 /**
- * Handles dashboard widgets via AJAX.
- *
- * @since 3.4.0
- */
-function wp_ajax_dashboard_widgets() {
-	require_once ABSPATH . 'wp-admin/includes/dashboard.php';
-
-	$pagenow = $_GET['pagenow'];
-	if ( 'dashboard-user' === $pagenow || 'dashboard-network' === $pagenow || 'dashboard' === $pagenow ) {
-		set_current_screen( $pagenow );
-	}
-
-	switch ( $_GET['widget'] ) {
-		case 'dashboard_primary':
-			wp_dashboard_primary();
-			break;
-	}
-	wp_die();
-}
-
-/**
  * Handles Customizer preview logged-in status via AJAX.
  *
  * @since 3.4.0

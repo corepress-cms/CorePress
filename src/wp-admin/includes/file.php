@@ -98,11 +98,11 @@ function get_file_description( $file ) {
 }
 
 /**
- * Gets the absolute filesystem path to the root of the WordPress installation.
+ * Gets the absolute filesystem path to the root of the CorePress installation.
  *
  * @since 1.5.0
  *
- * @return string Full filesystem path to the root of the WordPress installation.
+ * @return string Full filesystem path to the root of the CorePress installation.
  */
 function get_home_path() {
 	$home    = set_url_scheme( get_option( 'home' ), 'http' );
@@ -560,7 +560,7 @@ function wp_edit_theme_plugin_file( $args ) {
 
 		// Attempt loopback request to editor to see if user just whitescreened themselves.
 		if ( $plugin ) {
-			$url = add_query_arg( 
+			$url = add_query_arg(
 				array(
 					'file'   => rawurlencode( $file ),
 					'plugin' => rawurlencode( $plugin ),

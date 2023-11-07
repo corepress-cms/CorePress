@@ -404,9 +404,9 @@ class WP_Automatic_Updater {
 		switch ( $type ) {
 			case 'core':
 				/* translators: %s: WordPress version. */
-				$skin->feedback( __( 'Updating to WordPress %s' ), $item->version );
+				$skin->feedback( __( 'Updating to CorePress %s' ), $item->version );
 				/* translators: %s: WordPress version. */
-				$item_name = sprintf( __( 'WordPress %s' ), $item->version );
+				$item_name = sprintf( __( 'CorePress %s' ), $item->version );
 				break;
 			case 'theme':
 				$upgrader_item = $item->theme;
@@ -814,12 +814,12 @@ class WP_Automatic_Updater {
 				// Can only reference the About screen if their update was successful.
 				list( $about_version ) = explode( '-', $core_update->current, 2 );
 				/* translators: %s: WordPress version. */
-				$body .= sprintf( __( 'For more on version %s, see the About WordPress screen:' ), $about_version );
+				$body .= sprintf( __( 'For more on version %s, see the About CorePress screen:' ), $about_version );
 				$body .= "\n" . admin_url( 'about.php' );
 
 				if ( $newer_version_available ) {
 					/* translators: %s: WordPress latest version. */
-					$body .= "\n\n" . sprintf( __( 'WordPress %s is also now available.' ), $next_user_core_update->current ) . ' ';
+					$body .= "\n\n" . sprintf( __( 'CorePress %s is also now available.' ), $next_user_core_update->current ) . ' ';
 					$body .= __( 'Updating is easy and only takes a few moments:' );
 					$body .= "\n" . network_admin_url( 'update-core.php' );
 				}

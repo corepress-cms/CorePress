@@ -1,16 +1,16 @@
 {
-	"name": "WordPress",
+	"name": "CorePress",
 	"version": "6.5.0",
-	"description": "WordPress is open source software you can use to create a beautiful website, blog, or app.",
+	"description": "CorePress is open source software you can use to create a beautiful website, blog, or app.",
 	"repository": {
 		"type": "svn",
 		"url": "https://develop.svn.wordpress.org/trunk"
 	},
 	"engines": {
-		"node": ">=16.19.1",
-		"npm": ">=8.19.3 <9"
+		"node": ">=16.19.1 || >=18.0.0",
+		"npm": ">=8.19.3 || >=9"
 	},
-	"author": "The WordPress Contributors",
+	"author": "The CorePress Contributors",
 	"license": "GPL-2.0-or-later",
 	"browserslist": [
 		"> 1%",

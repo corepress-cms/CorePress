@@ -71,7 +71,7 @@ function get_locale() {
 	}
 
 	/**
-	 * Filters the locale ID of the WordPress installation.
+	 * Filters the locale ID of the CorePress installation.
 	 *
 	 * @since 1.5.0
 	 *
