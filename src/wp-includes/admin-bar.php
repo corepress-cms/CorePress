@@ -136,7 +136,7 @@ function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 		'id'    => 'wp-logo',
 		'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="screen-reader-text">' .
 				/* translators: Hidden accessibility text. */
-				__( 'About WordPress' ) .
+				__( 'About CorePress' ) .
 			'</span>',
 		'href'  => $about_url,
 	);
@@ -151,12 +151,12 @@ function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 	$wp_admin_bar->add_node( $wp_logo_menu_args );
 
 	if ( $about_url ) {
-		// Add "About WordPress" link.
+		// Add "About CorePress" link.
 		$wp_admin_bar->add_node(
 			array(
 				'parent' => 'wp-logo',
 				'id'     => 'about',
-				'title'  => __( 'About WordPress' ),
+				'title'  => __( 'About CorePress' ),
 				'href'   => $about_url,
 			)
 		);
