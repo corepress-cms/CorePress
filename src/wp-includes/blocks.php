@@ -764,6 +764,8 @@ function get_hooked_blocks() {
  * where it will inject the `theme` attribute into all Template Part blocks, and prepend the markup for
  * any blocks hooked `before` the given block and as its parent's `first_child`, respectively.
  *
+ * This function is meant for internal use only.
+ *
  * @since 6.4.0
  * @access private
  *
@@ -837,6 +839,8 @@ function make_before_block_visitor( $hooked_blocks, $context ) {
  * The returned function can be used as `$post_callback` argument to `traverse_and_serialize_block(s)`,
  * where it will append the markup for any blocks hooked `after` the given block and as its parent's
  * `last_child`, respectively.
+ *
+ * This function is meant for internal use only.
  *
  * @since 6.4.0
  * @access private
@@ -1035,7 +1039,10 @@ function serialize_blocks( $blocks ) {
  * This function should be used when there is a need to modify the saved block, or to inject markup
  * into the return value. Prefer `serialize_block` when preparing a block to be saved to post content.
  *
+ * This function is meant for internal use only.
+ *
  * @since 6.4.0
+ * @access private
  *
  * @see serialize_block()
  *
@@ -1117,7 +1124,10 @@ function traverse_and_serialize_block( $block, $pre_callback = null, $post_callb
  * This function should be used when there is a need to modify the saved blocks, or to inject markup
  * into the return value. Prefer `serialize_blocks` when preparing blocks to be saved to post content.
  *
+ * This function is meant for internal use only.
+ *
  * @since 6.4.0
+ * @access private
  *
  * @see serialize_blocks()
  *
@@ -1197,8 +1207,8 @@ function filter_block_content( $text, $allowed_html = 'post', $allowed_protocols
 /**
  * Callback used for regular expression replacement in filter_block_content().
  *
- * @private
  * @since 6.2.1
+ * @access private
  *
  * @param array $matches Array of preg_replace_callback matches.
  * @return string Replacement string.
@@ -1970,7 +1980,7 @@ function get_comments_pagination_arrow( $block, $pagination_type = 'next' ) {
  * @return string Filtered content without any HTML on the footnote content and with the sanitized id.
  */
 function _wp_filter_post_meta_footnotes( $footnotes ) {
-	$footnotes_decoded   = json_decode( $footnotes, true );
+	$footnotes_decoded = json_decode( $footnotes, true );
 	if ( ! is_array( $footnotes_decoded ) ) {
 		return '';
 	}
