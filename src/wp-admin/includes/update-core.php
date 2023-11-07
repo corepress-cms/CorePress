@@ -1625,16 +1625,6 @@ function update_core( $from, $to ) {
 function _preload_old_requests_classes_and_interfaces( $to ) {
 	global $_old_requests_files, $wp_filesystem, $wp_version;
 
-	/*
-	 * Requests was introduced in WordPress 4.6.
-	 *
-	 * Skip preloading if the website was previously using
-	 * an earlier version of WordPress.
-	 */
-	if ( version_compare( $wp_version, '4.6', '<' ) ) {
-		return;
-	}
-
 	if ( ! defined( 'REQUESTS_SILENCE_PSR0_DEPRECATIONS' ) ) {
 		define( 'REQUESTS_SILENCE_PSR0_DEPRECATIONS', true );
 	}
@@ -1657,70 +1647,6 @@ function _preload_old_requests_classes_and_interfaces( $to ) {
 
 		require_once $to . $file;
 	}
-}
-
-/**
- * Redirect to the About WordPress page after a successful upgrade.
- *
- * This function is only needed when the existing installation is older than 3.4.0.
- *
- * @since 3.3.0
- *
- * @global string $wp_version The WordPress version string.
- * @global string $pagenow    The filename of the current screen.
- * @global string $action
- *
- * @param string $new_version
- */
-function _redirect_to_about_wordpress( $new_version ) {
-	global $wp_version, $pagenow, $action;
-
-	if ( version_compare( $wp_version, '3.4-RC1', '>=' ) ) {
-		return;
-	}
-
-	// Ensure we only run this on the update-core.php page. The Core_Upgrader may be used in other contexts.
-	if ( 'update-core.php' !== $pagenow ) {
-		return;
-	}
-
-	if ( 'do-core-upgrade' !== $action && 'do-core-reinstall' !== $action ) {
-		return;
-	}
-
-	// Load the updated default text localization domain for new strings.
-	load_default_textdomain();
-
-	// See do_core_upgrade().
-	show_message( __( 'WordPress updated successfully.' ) );
-
-	// self_admin_url() won't exist when upgrading from <= 3.0, so relative URLs are intentional.
-	show_message(
-		'<span class="hide-if-no-js">' . sprintf(
-			/* translators: 1: WordPress version, 2: URL to About screen. */
-			__( 'Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href="%2$s">here</a>.' ),
-			$new_version,
-			'about.php?updated'
-		) . '</span>'
-	);
-	show_message(
-		'<span class="hide-if-js">' . sprintf(
-			/* translators: 1: WordPress version, 2: URL to About screen. */
-			__( 'Welcome to WordPress %1$s. <a href="%2$s">Learn more</a>.' ),
-			$new_version,
-			'about.php?updated'
-		) . '</span>'
-	);
-	echo '</div>';
-	?>
-<script type="text/javascript">
-window.location = 'about.php?updated';
-</script>
-	<?php
-
-	// Include admin-footer.php and exit.
-	require_once ABSPATH . 'wp-admin/admin-footer.php';
-	exit;
 }
 
 /**

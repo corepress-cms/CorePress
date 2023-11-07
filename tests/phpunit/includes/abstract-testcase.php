@@ -46,17 +46,6 @@ abstract class WP_UnitTestCase_Base extends PHPUnit_Adapter_TestCase {
 	}
 
 	/**
-	 * Retrieves the name of the class the static method is called in.
-	 *
-	 * @deprecated 5.3.0 Use the PHP native get_called_class() function instead.
-	 *
-	 * @return string The class name.
-	 */
-	public static function get_called_class() {
-		return get_called_class();
-	}
-
-	/**
 	 * Runs the routine before setting up all tests.
 	 */
 	public static function set_up_before_class() {
@@ -676,30 +665,6 @@ abstract class WP_UnitTestCase_Base extends PHPUnit_Adapter_TestCase {
 	}
 
 	/**
-	 * Redundant PHPUnit 6+ compatibility shim. DO NOT USE!
-	 *
-	 * This method is only left in place for backward compatibility reasons.
-	 *
-	 * @since 4.8.0
-	 * @deprecated 5.9.0 Use the PHPUnit native expectException*() methods directly.
-	 *
-	 * @param mixed      $exception
-	 * @param string     $message
-	 * @param int|string $code
-	 */
-	public function setExpectedException( $exception, $message = '', $code = null ) {
-		$this->expectException( $exception );
-
-		if ( '' !== $message ) {
-			$this->expectExceptionMessage( $message );
-		}
-
-		if ( null !== $code ) {
-			$this->expectExceptionCode( $code );
-		}
-	}
-
-	/**
 	 * Adds a deprecated function to the list of caught deprecated calls.
 	 *
 	 * @since 3.7.0
@@ -1253,21 +1218,6 @@ abstract class WP_UnitTestCase_Base extends PHPUnit_Adapter_TestCase {
 	}
 
 	/**
-	 * Allows tests to be skipped on single or multisite installs by using @group annotations.
-	 *
-	 * This is a custom extension of the PHPUnit requirements handling.
-	 *
-	 * @since 3.5.0
-	 * @deprecated 5.9.0 This method has not been functional since PHPUnit 7.0.
-	 */
-	protected function checkRequirements() {
-		// For PHPUnit 5/6, as we're overloading a public PHPUnit native method in those versions.
-		if ( is_callable( 'PHPUnit\Framework\TestCase', 'checkRequirements' ) ) {
-			parent::checkRequirements();
-		}
-	}
-
-	/**
 	 * Skips the current test if there is an open Trac ticket associated with it.
 	 *
 	 * @since 3.5.0
@@ -1281,18 +1231,6 @@ abstract class WP_UnitTestCase_Base extends PHPUnit_Adapter_TestCase {
 		if ( ! TracTickets::isTracTicketClosed( 'https://core.trac.wordpress.org', $ticket_id ) ) {
 			$this->markTestSkipped( sprintf( 'WordPress Ticket #%d is not fixed', $ticket_id ) );
 		}
-	}
-
-	/**
-	 * Skips the current test if there is an open Unit Test Trac ticket associated with it.
-	 *
-	 * @since 3.5.0
-	 * @deprecated No longer used since the Unit Test Trac was merged into the Core Trac.
-	 *
-	 * @param int $ticket_id Ticket number.
-	 */
-	public function knownUTBug( $ticket_id ) {
-		return;
 	}
 
 	/**
