@@ -14,13 +14,27 @@ const results = {
 	lcpMinusTtfb: [],
 };
 
-test.describe( 'Front End - Twenty Twenty Four', () => {
+test.describe( 'Front End - Twenty Twenty Three (L10N)', () => {
 	test.use( {
 		storageState: {}, // User will be logged out.
 	} );
 
 	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activateTheme( 'twentytwentyfour' );
+		await requestUtils.activateTheme( 'twentytwentythree' );
+		await requestUtils.updateSiteSettings( {
+			language: 'de_DE',
+		} );
+	} );
+
+	test.afterAll( async ( { requestUtils }, testInfo ) => {
+		await testInfo.attach( 'results', {
+			body: JSON.stringify( results, null, 2 ),
+			contentType: 'application/json',
+		} );
+		await requestUtils.activateTheme( 'twentytwentyone' );
+		await requestUtils.updateSiteSettings( {
+			language: '',
+		} );
 	} );
 
 	const iterations = Number( process.env.TEST_RUNS );

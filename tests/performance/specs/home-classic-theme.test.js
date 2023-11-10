@@ -14,13 +14,20 @@ const results = {
 	lcpMinusTtfb: [],
 };
 
-test.describe( 'Front End - Twenty Twenty Four', () => {
+test.describe( 'Front End - Twenty Twenty One', () => {
 	test.use( {
 		storageState: {}, // User will be logged out.
 	} );
 
 	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activateTheme( 'twentytwentyfour' );
+		await requestUtils.activateTheme( 'twentytwentyone' );
+	} );
+
+	test.afterAll( async ( {}, testInfo ) => {
+		await testInfo.attach( 'results', {
+			body: JSON.stringify( results, null, 2 ),
+			contentType: 'application/json',
+		} );
 	} );
 
 	const iterations = Number( process.env.TEST_RUNS );
