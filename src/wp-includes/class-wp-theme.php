@@ -492,7 +492,7 @@ final class WP_Theme implements ArrayAccess {
 				}
 				return;
 			}
-			// Set the parent. Pass the current instance so we can do the crazy checks above and assess errors.
+			// Set the parent. Pass the current instance so we can do the checks above and assess errors.
 			$this->parent = new WP_Theme( $this->template, isset( $theme_root_template ) ? $theme_root_template : $this->theme_root, $this );
 		}
 
@@ -1248,7 +1248,7 @@ final class WP_Theme implements ArrayAccess {
 			return false;
 		}
 
-		foreach ( array( 'png', 'gif', 'jpg', 'jpeg', 'webp' ) as $ext ) {
+		foreach ( array( 'png', 'gif', 'jpg', 'jpeg', 'webp', 'avif' ) as $ext ) {
 			if ( file_exists( $this->get_stylesheet_directory() . "/screenshot.$ext" ) ) {
 				$this->cache_add( 'screenshot', 'screenshot.' . $ext );
 				if ( 'relative' === $uri ) {
@@ -1959,7 +1959,7 @@ final class WP_Theme implements ArrayAccess {
 		if ( ! $this->exists() ) {
 			return false;
 		}
-		$pattern_data = wp_cache_get( 'wp_theme_patterns_' . $this->stylesheet );
+		$pattern_data = wp_cache_get( 'wp_theme_patterns_' . $this->stylesheet, 'theme_files' );
 		if ( is_array( $pattern_data ) && $pattern_data['version'] === $this->get( 'Version' ) ) {
 			return $pattern_data['patterns'];
 		}
@@ -1978,7 +1978,7 @@ final class WP_Theme implements ArrayAccess {
 			'version'  => $this->get( 'Version' ),
 			'patterns' => $patterns,
 		);
-		wp_cache_set( 'wp_theme_patterns_' . $this->stylesheet, $pattern_data );
+		wp_cache_set( 'wp_theme_patterns_' . $this->stylesheet, $pattern_data, 'theme_files' );
 	}
 
 	/**
@@ -1987,7 +1987,7 @@ final class WP_Theme implements ArrayAccess {
 	 * @since 6.4.0
 	 */
 	public function delete_pattern_cache() {
-		wp_cache_delete( 'wp_theme_patterns_' . $this->stylesheet );
+		wp_cache_delete( 'wp_theme_patterns_' . $this->stylesheet, 'theme_files' );
 	}
 
 	/**
