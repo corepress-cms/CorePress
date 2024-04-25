@@ -1205,7 +1205,7 @@ function wp_admin_canonical_url() {
 	 *
 	 * @param string $filtered_url The admin canonical url value.
 	 */
-	$filtered_url = apply_filters( 'admin_canonical_url', $filtered_url );
+	$filtered_url = apply_filters( 'wp_admin_canonical_url', $filtered_url );
 	?>
 	<link id="wp-admin-canonical" rel="canonical" href="<?php echo esc_url( $filtered_url ); ?>" />
 	<script>
