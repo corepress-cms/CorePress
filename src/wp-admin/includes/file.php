@@ -1097,7 +1097,7 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
  * @param array|false $overrides Optional. An associative array of names => values
  *                               to override default variables. Default false.
  *                               See _wp_handle_upload() for accepted values.
- * @param string      $time      Optional. Time formatted in 'yyyy/mm'. Default null.
+ * @param string|null $time      Optional. Time formatted in 'yyyy/mm'. Default null.
  * @return array See _wp_handle_upload() for return value.
  */
 function wp_handle_upload( &$file, $overrides = false, $time = null ) {
@@ -1128,7 +1128,7 @@ function wp_handle_upload( &$file, $overrides = false, $time = null ) {
  * @param array|false $overrides Optional. An associative array of names => values
  *                               to override default variables. Default false.
  *                               See _wp_handle_upload() for accepted values.
- * @param string      $time      Optional. Time formatted in 'yyyy/mm'. Default null.
+ * @param string|null $time      Optional. Time formatted in 'yyyy/mm'. Default null.
  * @return array See _wp_handle_upload() for return value.
  */
 function wp_handle_sideload( &$file, $overrides = false, $time = null ) {

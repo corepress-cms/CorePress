@@ -30,9 +30,7 @@ async function globalSetup( config ) {
 	await requestUtils.setupRest();
 
 	// Reset the test environment before running the tests.
-	await Promise.all( [
-		requestUtils.activateTheme( 'twentytwentyfour' ),
-	] );
+	await Promise.all( [ requestUtils.activateTheme( 'twentytwentyfour' ) ] );
 
 	await requestContext.dispose();
 }
