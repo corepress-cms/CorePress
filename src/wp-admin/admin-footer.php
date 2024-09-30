@@ -35,7 +35,7 @@ global $hook_suffix;
 		$text = sprintf(
 			/* translators: %s: https://corepress.org/ */
 			__( 'Thank you for creating with <a href="%s">CorePress</a>.' ),
-			__( 'https://corepress.org/' )
+			esc_url( __( 'https://corepress.org/' ) )
 		);
 
 		/**

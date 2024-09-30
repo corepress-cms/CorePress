@@ -1163,7 +1163,7 @@ function wp_handle_sideload( &$file, $overrides = false, $time = null ) {
 function download_url( $url, $timeout = 300, $signature_verification = false ) {
 	// WARNING: The file is not automatically deleted, the script must delete or move the file.
 	if ( ! $url ) {
-		return new WP_Error( 'http_no_url', __( 'Invalid URL Provided.' ) );
+		return new WP_Error( 'http_no_url', __( 'No URL Provided.' ) );
 	}
 
 	$url_path     = parse_url( $url, PHP_URL_PATH );
@@ -2480,7 +2480,7 @@ function request_filesystem_credentials( $form_post, $type = '', $error = false,
 		);
 
 		if ( ! wp_installing() ) {
-			update_option( 'ftp_credentials', $stored_credentials );
+			update_option( 'ftp_credentials', $stored_credentials, false );
 		}
 
 		return $credentials;
@@ -2648,7 +2648,7 @@ function request_filesystem_credentials( $form_post, $type = '', $error = false,
 	<p class="request-filesystem-credentials-action-buttons">
 		<?php wp_nonce_field( 'filesystem-credentials', '_fs_nonce', false, true ); ?>
 		<button class="button cancel-button" data-js-action="close" type="button"><?php _e( 'Cancel' ); ?></button>
-		<?php submit_button( __( 'Proceed' ), '', 'upgrade', false ); ?>
+		<?php submit_button( __( 'Proceed' ), 'primary', 'upgrade', false ); ?>
 	</p>
 </div>
 </form>
@@ -2779,7 +2779,7 @@ function wp_opcache_invalidate_directory( $dir ) {
 				__( '%s expects a non-empty string.' ),
 				'<code>wp_opcache_invalidate_directory()</code>'
 			);
-			trigger_error( $error_message );
+			wp_trigger_error( '', $error_message );
 		}
 		return;
 	}
