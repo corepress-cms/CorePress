@@ -64,7 +64,6 @@ final class WP_Theme implements ArrayAccess {
 	 * @var string[]
 	 */
 	private static $default_themes = array(
-		'twentytwentyfour'  => 'Twenty Twenty-Four',
 		'twentytwentyfive'  => 'Twenty Twenty-Five',
 	);
 

@@ -944,7 +944,6 @@ $_old_requests_files = array(
 global $_new_bundled_files;
 
 $_new_bundled_files = array(
-	'themes/twentytwentyfour/'  => '6.4',
 	'themes/twentytwentyfive/'  => '6.7',
 );
 
