@@ -545,6 +545,11 @@ class WP {
 			if ( $post && pings_open( $post ) ) {
 				$headers['X-Pingback'] = get_bloginfo( 'pingback_url', 'display' );
 			}
+
+			// Send nocache headers for password protected posts to avoid unwanted caching.
+			if ( ! empty( $post->post_password ) ) {
+				$headers = array_merge( $headers, wp_get_nocache_headers() );
+			}
 		}
 
 		/**
@@ -747,15 +752,14 @@ class WP {
 			$content_found = true;
 
 			if ( is_singular() ) {
-				$post    = isset( $wp_query->post ) ? $wp_query->post : null;
-				$next    = '<!--nextpage-->';
-				$page_qv = is_front_page() ? 'paged' : 'page';
+				$post = isset( $wp_query->post ) ? $wp_query->post : null;
+				$next = '<!--nextpage-->';
 
 				// Check for paged content that exceeds the max number of pages.
-				if ( $post && ! empty( $this->query_vars[ $page_qv ] ) ) {
+				if ( $post && ! empty( $this->query_vars['page'] ) ) {
 					// Check if content is actually intended to be paged.
 					if ( str_contains( $post->post_content, $next ) ) {
-						$page          = trim( $this->query_vars[ $page_qv ], '/' );
+						$page          = trim( $this->query_vars['page'], '/' );
 						$content_found = (int) $page <= ( substr_count( $post->post_content, $next ) + 1 );
 					} else {
 						$content_found = false;
